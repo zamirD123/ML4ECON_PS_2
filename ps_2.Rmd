@@ -1,0 +1,317 @@
+---
+title: "PS2"
+author: "Doron Zamir"
+date: "4/26/2021"
+output:
+  html_document:
+    df_print: paged
+subtitle: ml4econ, HUJI 2021
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  eval = TRUE,
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache = FALSE,
+  dev = "svglite",
+  fig.ext = ".svg")
+```
+
+# Load Packages
+```{r}
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(
+  tidyverse,
+  tidymodels,
+  vip,
+  here,
+  readxl,
+  DataExplorer,
+  caret,
+  glmnet
+)
+```
+set seed:
+```{r}
+set.seed(100)
+```
+
+
+# Linear regression
+### 1. *Can we use the data for prediction without assumptions? Why?* 
+Since we are not interested in the casual effect of the `x`'s, nor the underlying model related to the DGP, the only assumption we need to make in order to make predictions is  that of a **Stable DGP**.
+
+### 2. *What is the downside in adding interactions? *
+When adding interactions, we are increasing the number of featuers(`x`'s) in our model. The $k$ in $n/k$ ratio increases and our model becomes more saturated. This might cause to overfitting of the model. 
+
+### 3. *Why is $E(u|X) \sim N(0,\sigma)$ assumptions strong?*
+This assumptions are strong:
+* although it could be the case that the residual converges in distribution to th Normal distribution (from CLT), it's not the only option: for example, if we observe the frequency that an event occurs, it's more likley that it will be from the Poisson distribution.
+
+* it might not be the case that the error term has a mean of zero, but you can always ajust it to be zero by changing $\beta_0$.
+
+### 4. *The $\beta$s CI:* 
+From the above assumptions on the distribution of the error term, we can conclude the distribution of the $\beta$s, and by using the sample standart errors as an estimatior to it's SD, we can calculate the CI. 
+
+## Emprical Exercise - The Wine Dataset
+
+### Loading the Data:
+
+```{r}
+wine_raw <- 
+  here("Data","winequality_red.csv") %>% 
+  read_csv()
+
+```
+
+### Exploring the data
+Note the data has no `na`.
+
+plot continuous variables:
+```{r}
+wine_raw %>% 
+  plot_histogram()
+```
+
+plot variables against `quality`:
+```{r}
+wine_raw %>% 
+  plot_boxplot(by = "quality")
+```
+
+### Model
+
+train/test split (70/30):
+```{r}
+wine_split <- wine_raw %>% initial_split(prop = 0.7)
+wine_train <- wine_split %>% training()
+wine_test <- wine_split %>% testing()
+```
+
+Simple Linear Model:
+```{r}
+wine_lm <- wine_train %>% 
+  lm(quality~.,
+     data = .)
+
+wine_lm %>% tidy()
+```
+
+Prediction:
+```{r}
+wine_test_pred <- wine_test %>% 
+  mutate(pred =predict(
+    wine_lm,
+    newdata = wine_test)) %>% 
+  mutate(pred = round(pred,digits = 0))
+
+wine_test_pred %>% select(pred) %>% sample_n(6)
+```
+
+
+calculate metrics:
+```{r}
+wine_test_pred %>% 
+  summarise(
+    RMSE = mean((pred - quality)^2)^0.5,
+    "R^2" = cov(pred,quality)^2,
+    MAE = mean(abs(pred-quality))
+)
+```
+
+### RMSE vs. t-test
+
+while t test checks for significant of the $\beta$s, the `RMSE` checks for the accuracy of the entire model. 
+
+
+# Emprical Exercise - The Heart Dataset
+
+### *Can we use linear regression for binary outcomes?*
+Yes, we can use binary regression model (i.e., OLS when the $Y$ is binary). We might accure some problems, as the predictions are not limtied to the $[0,1]$ segment. It is more common to use `probit/logit`.
+### Loading the Data:
+
+```{r}
+heart_raw <- 
+  here("Data","heart.csv") %>% 
+  read_csv()
+
+heart_raw %>% head()
+```
+
+### Exploring the data
+Note the data has no `na`.
+
+plot continuous variables:
+```{r}
+heart_raw %>% 
+  plot_histogram()
+```
+### Model
+
+train/test split (70/30):
+```{r}
+heart_split <- heart_raw %>% initial_split(prop = 0.7)
+heart_train <- heart_split %>% training()
+heart_test <- heart_split %>% testing()
+```
+
+
+#### Linear regression:
+```{r}
+heart_lm <-  lm(target ~.,
+                data =heart_train)
+
+heart_lm %>% tidy()
+```
+
+predict:
+```{r}
+p <- 0.9
+heart_test_pred <- heart_test %>% 
+  mutate(
+    pred = predict(heart_lm,heart_test,type="response"),
+    target_fct = factor(target),
+    pred_class = if_else(pred > p,1,0),
+    pred_class = factor(pred_class))
+
+heart_test_pred$pred %>% max()
+heart_test_pred$pred %>% min()
+```
+It's easy to se the prediction are not in [0,1].
+
+ROC curve
+```{r}
+heart_test_pred %>%
+  roc_curve(target_fct,pred) %>% autoplot()
+
+ heart_test_pred  %>%
+  conf_mat(target_fct,pred_class)
+```
+
+The model is not good, at all...
+
+#### Logit
+
+estimating logistic model:
+```{r}
+heart_logit <- glm(formula = target ~.,
+                   data = heart_train,
+                   family = "binomial")
+
+heart_logit %>% summary()
+
+logit_coef <- heart_logit %>%
+  tidy() %>% select(estimate) %>% 
+  rename(Logit = estimate)
+```
+
+making predictions:
+```{r}
+heart_log_predict <- heart_test %>% 
+  mutate(
+    pred=predict(heart_logit,heart_test,type="response")
+  )
+
+heart_log_predict$pred %>% max()
+heart_log_predict$pred %>% min()
+```
+
+calsify predictions for p = 0.9
+```{r}
+p <- 0.9
+heart_log_predict <- heart_log_predict %>%
+  mutate(
+    pred_class = if_else(pred > p,"positive","negative"),
+    pred_class = factor(pred_class),
+    target_fct = if_else(target == 1,"positive","negative"),
+    target_fct = factor(target_fct)
+) 
+```
+
+
+matrics:
+```{r}
+conf_mtx <- heart_log_predict  %>%
+  conf_mat(target_fct,pred_class)
+
+conf_mtx %>% summary() %>% 
+  pivot_wider(names_from = .metric, values_from = .estimate) %>% 
+  select(accuracy,spec,sens)
+```
+
+## Regularization
+
+### *Penalty*
+
+1. The term in the penalty must be in absolute or square terms, beacuse we want it to be positive, even if some of the $\beta$s are negative.
+2. Since LASSO uses the absolute value in the penalty temm, the optimum related to it is usually when some of the $\beta$ are zero (triangle Vs. circle), and therefor it functions as "variable selection"
+
+
+### *Modeling*
+
+preparing data for glmnet:
+```{r}
+X_heart <- heart_test %>% select(-target) %>% as.matrix
+Y_heart <- heart_test %>% select(target) %>% as.matrix
+```
+
+Fitting a model
+```{r}
+fit_ridge <- glmnet(
+  x = X_heart,
+  y = Y_heart,
+  alpha = 0
+)
+plot(fit_ridge,xvar = "lambda")
+```
+
+```{r}
+cv_ridge <- cv.glmnet(
+  x = X_heart,
+  y = Y_heart,
+  alpha = 0 
+)
+plot (cv_ridge)
+```
+
+Coeffitients:
+```{r}
+coef_1 <- coef(cv_ridge, s = "lambda.min") %>%
+  tidy() %>%
+  as_tibble() %>%
+  select(value) %>%
+  rename(lambda_min = value)
+
+coef(cv_ridge, s = "lambda.1se") %>%
+  tidy() %>%
+  as_tibble %>%
+  select(-column) %>% 
+  rename("lambda_1se" = value) %>% 
+  bind_cols(coef_1,logit_coef)
+```
+
+The coefficients are very different from the one form the Logistic regression, and some of them are really close to zero.
+  
+### problem with covariats = zero
+In Econometrics, we are interested in the causual effect of an observable. Reducing the coeffitiant of a featcher to zero for reasons of model simplicity might cause us to lose important information.
+
+### prediction:
+```{r}
+heart_predict <- heart_test %>%
+  select(target) %>%
+  mutate(
+    log_pred = predict(heart_logit, newdata = heart_test),
+    min_lam_pred = predict(cv_ridge,
+                           as.matrix(select(heart_test,-target))
+                           ,s = "lambda.min")[,1],
+    "1se_lam_pred" = predict(cv_ridge,
+                           as.matrix(select(heart_test,-target))
+                           ,s = "lambda.1se")[,1]
+  )
+```
+
+
+*The code for this file is on Github, and can be found [here](https://github.com/zamirD123/ML4ECON_PS_2.git)*

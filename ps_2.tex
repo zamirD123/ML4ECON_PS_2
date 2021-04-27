@@ -1,0 +1,741 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={PS2},
+  pdfauthor={Doron Zamir},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{PS2}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{ml4econ, HUJI 2021}
+\author{Doron Zamir}
+\date{4/26/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{load-packages}{%
+\section{Load Packages}\label{load-packages}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{"pacman"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"pacman"}\NormalTok{)}
+
+\NormalTok{pacman}\SpecialCharTok{::}\FunctionTok{p\_load}\NormalTok{(}
+\NormalTok{  tidyverse,}
+\NormalTok{  tidymodels,}
+\NormalTok{  vip,}
+\NormalTok{  here,}
+\NormalTok{  readxl,}
+\NormalTok{  DataExplorer,}
+\NormalTok{  caret,}
+\NormalTok{  glmnet}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+set seed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{linear-regression}{%
+\section{Linear regression}\label{linear-regression}}
+
+\hypertarget{can-we-use-the-data-for-prediction-without-assumptions-why}{%
+\subsubsection{\texorpdfstring{1. \emph{Can we use the data for
+prediction without assumptions?
+Why?}}{1. Can we use the data for prediction without assumptions? Why?}}\label{can-we-use-the-data-for-prediction-without-assumptions-why}}
+
+Since we are not interested in the casual effect of the \texttt{x}'s,
+nor the underlying model related to the DGP, the only assumption we need
+to make in order to make predictions is that of a \textbf{Stable DGP}.
+
+\hypertarget{what-is-the-downside-in-adding-interactions}{%
+\subsubsection{\texorpdfstring{2. \emph{What is the downside in adding
+interactions?
+}}{2. What is the downside in adding interactions? }}\label{what-is-the-downside-in-adding-interactions}}
+
+When adding interactions, we are increasing the number of
+featuers(\texttt{x}'s) in our model. The \(k\) in \(n/k\) ratio
+increases and our model becomes more saturated. This might cause to
+overfitting of the model.
+
+\hypertarget{why-is-eux-sim-n0sigma-assumptions-strong}{%
+\subsubsection{\texorpdfstring{3. \emph{Why is
+\(E(u|X) \sim N(0,\sigma)\) assumptions
+strong?}}{3. Why is E(u\textbar X) \textbackslash sim N(0,\textbackslash sigma) assumptions strong?}}\label{why-is-eux-sim-n0sigma-assumptions-strong}}
+
+This assumptions are strong: * although it could be the case that the
+residual converges in distribution to th Normal distribution (from CLT),
+it's not the only option: for example, if we observe the frequency that
+an event occurs, it's more likley that it will be from the Poisson
+distribution.
+
+\begin{itemize}
+\tightlist
+\item
+  it might not be the case that the error term has a mean of zero, but
+  you can always ajust it to be zero by changing \(\beta_0\).
+\end{itemize}
+
+\hypertarget{the-betas-ci}{%
+\subsubsection{\texorpdfstring{4. \emph{The \(\beta\)s
+CI:}}{4. The \textbackslash betas CI:}}\label{the-betas-ci}}
+
+From the above assumptions on the distribution of the error term, we can
+conclude the distribution of the \(\beta\)s, and by using the sample
+standart errors as an estimatior to it's SD, we can calculate the CI.
+
+\hypertarget{emprical-exercise---the-wine-dataset}{%
+\subsection{Emprical Exercise - The Wine
+Dataset}\label{emprical-exercise---the-wine-dataset}}
+
+\hypertarget{loading-the-data}{%
+\subsubsection{Loading the Data:}\label{loading-the-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_raw }\OtherTok{\textless{}{-}} 
+  \FunctionTok{here}\NormalTok{(}\StringTok{"Data"}\NormalTok{,}\StringTok{"winequality\_red.csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{read\_csv}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{exploring-the-data}{%
+\subsubsection{Exploring the data}\label{exploring-the-data}}
+
+Note the data has no \texttt{na}.
+
+plot continuous variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{plot\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-4-1..svg}
+
+plot variables against \texttt{quality}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{plot\_boxplot}\NormalTok{(}\AttributeTok{by =} \StringTok{"quality"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-5-1..svg}
+
+\hypertarget{model}{%
+\subsubsection{Model}\label{model}}
+
+train/test split (70/30):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_split }\OtherTok{\textless{}{-}}\NormalTok{ wine\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{initial\_split}\NormalTok{(}\AttributeTok{prop =} \FloatTok{0.7}\NormalTok{)}
+\NormalTok{wine\_train }\OtherTok{\textless{}{-}}\NormalTok{ wine\_split }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{training}\NormalTok{()}
+\NormalTok{wine\_test }\OtherTok{\textless{}{-}}\NormalTok{ wine\_split }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{testing}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Simple Linear Model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_lm }\OtherTok{\textless{}{-}}\NormalTok{ wine\_train }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{lm}\NormalTok{(quality}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}
+     \AttributeTok{data =}\NormalTok{ .)}
+
+\NormalTok{wine\_lm }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 5
+##    term                   estimate std.error statistic  p.value
+##    <chr>                     <dbl>     <dbl>     <dbl>    <dbl>
+##  1 (Intercept)             8.82    26.5          0.333 7.39e- 1
+##  2 `fixed acidity`         0.0201   0.0322       0.625 5.32e- 1
+##  3 `volatile acidity`     -1.19     0.153       -7.74  2.30e-14
+##  4 `citric acid`          -0.246    0.184       -1.34  1.82e- 1
+##  5 `residual sugar`        0.0177   0.0197       0.899 3.69e- 1
+##  6 chlorides              -2.30     0.545       -4.21  2.76e- 5
+##  7 `free sulfur dioxide`   0.00396  0.00273      1.45  1.47e- 1
+##  8 `total sulfur dioxide` -0.00291  0.000876    -3.32  9.32e- 4
+##  9 density                -4.35    27.0         -0.161 8.72e- 1
+## 10 pH                     -0.483    0.239       -2.02  4.36e- 2
+## 11 sulphates               0.988    0.144        6.87  1.10e-11
+## 12 alcohol                 0.274    0.0332       8.24  4.83e-16
+\end{verbatim}
+
+Prediction:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_test\_pred }\OtherTok{\textless{}{-}}\NormalTok{ wine\_test }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pred =}\FunctionTok{predict}\NormalTok{(}
+\NormalTok{    wine\_lm,}
+    \AttributeTok{newdata =}\NormalTok{ wine\_test)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pred =} \FunctionTok{round}\NormalTok{(pred,}\AttributeTok{digits =} \DecValTok{0}\NormalTok{))}
+
+\NormalTok{wine\_test\_pred }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(pred) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sample\_n}\NormalTok{(}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 1
+##    pred
+##   <dbl>
+## 1     6
+## 2     5
+## 3     6
+## 4     5
+## 5     6
+## 6     5
+\end{verbatim}
+
+calculate metrics:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wine\_test\_pred }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{RMSE =} \FunctionTok{mean}\NormalTok{((pred }\SpecialCharTok{{-}}\NormalTok{ quality)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\FloatTok{0.5}\NormalTok{,}
+    \StringTok{"R\^{}2"} \OtherTok{=} \FunctionTok{cov}\NormalTok{(pred,quality)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+    \AttributeTok{MAE =} \FunctionTok{mean}\NormalTok{(}\FunctionTok{abs}\NormalTok{(pred}\SpecialCharTok{{-}}\NormalTok{quality))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##    RMSE  `R^2`   MAE
+##   <dbl>  <dbl> <dbl>
+## 1 0.645 0.0628 0.386
+\end{verbatim}
+
+\hypertarget{rmse-vs.-t-test}{%
+\subsubsection{RMSE vs.~t-test}\label{rmse-vs.-t-test}}
+
+while t test checks for significant of the \(\beta\)s, the \texttt{RMSE}
+checks for the accuracy of the entire model.
+
+\hypertarget{emprical-exercise---the-heart-dataset}{%
+\section{Emprical Exercise - The Heart
+Dataset}\label{emprical-exercise---the-heart-dataset}}
+
+\hypertarget{can-we-use-linear-regression-for-binary-outcomes}{%
+\subsubsection{\texorpdfstring{\emph{Can we use linear regression for
+binary
+outcomes?}}{Can we use linear regression for binary outcomes?}}\label{can-we-use-linear-regression-for-binary-outcomes}}
+
+Yes, we can use binary regression model (i.e., OLS when the \(Y\) is
+binary). We might accure some problems, as the predictions are not
+limtied to the \([0,1]\) segment. It is more common to use
+\texttt{probit/logit}. \#\#\# Loading the Data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_raw }\OtherTok{\textless{}{-}} 
+  \FunctionTok{here}\NormalTok{(}\StringTok{"Data"}\NormalTok{,}\StringTok{"heart.csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{read\_csv}\NormalTok{()}
+
+\NormalTok{heart\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 14
+##     age   sex    cp trestbps  chol   fbs restecg thalach exang oldpeak slope
+##   <dbl> <dbl> <dbl>    <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>   <dbl> <dbl>
+## 1    63     1     3      145   233     1       0     150     0     2.3     0
+## 2    37     1     2      130   250     0       1     187     0     3.5     0
+## 3    41     0     1      130   204     0       0     172     0     1.4     2
+## 4    56     1     1      120   236     0       1     178     0     0.8     2
+## 5    57     0     0      120   354     0       1     163     1     0.6     2
+## 6    57     1     0      140   192     0       1     148     0     0.4     1
+## # ... with 3 more variables: ca <dbl>, thal <dbl>, target <dbl>
+\end{verbatim}
+
+\hypertarget{exploring-the-data-1}{%
+\subsubsection{Exploring the data}\label{exploring-the-data-1}}
+
+Note the data has no \texttt{na}.
+
+plot continuous variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{plot\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-11-1..svg} \#\#\#
+Model
+
+train/test split (70/30):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_split }\OtherTok{\textless{}{-}}\NormalTok{ heart\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{initial\_split}\NormalTok{(}\AttributeTok{prop =} \FloatTok{0.7}\NormalTok{)}
+\NormalTok{heart\_train }\OtherTok{\textless{}{-}}\NormalTok{ heart\_split }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{training}\NormalTok{()}
+\NormalTok{heart\_test }\OtherTok{\textless{}{-}}\NormalTok{ heart\_split }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{testing}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{linear-regression-1}{%
+\paragraph{Linear regression:}\label{linear-regression-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_lm }\OtherTok{\textless{}{-}}  \FunctionTok{lm}\NormalTok{(target }\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}
+                \AttributeTok{data =}\NormalTok{heart\_train)}
+
+\NormalTok{heart\_lm }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tidy}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 14 x 5
+##    term         estimate std.error statistic   p.value
+##    <chr>           <dbl>     <dbl>     <dbl>     <dbl>
+##  1 (Intercept)  0.757     0.359        2.11  0.0361   
+##  2 age         -0.00105   0.00321     -0.327 0.744    
+##  3 sex         -0.231     0.0579      -3.99  0.0000929
+##  4 cp           0.115     0.0272       4.22  0.0000365
+##  5 trestbps    -0.00157   0.00158     -0.990 0.323    
+##  6 chol        -0.000798  0.000539    -1.48  0.140    
+##  7 fbs          0.0110    0.0717       0.154 0.878    
+##  8 restecg      0.0364    0.0481       0.757 0.450    
+##  9 thalach      0.00440   0.00144      3.06  0.00249  
+## 10 exang       -0.143     0.0614      -2.32  0.0213   
+## 11 oldpeak     -0.0609    0.0304      -2.00  0.0464   
+## 12 slope        0.0356    0.0503       0.707 0.480    
+## 13 ca          -0.0739    0.0258      -2.86  0.00462  
+## 14 thal        -0.119     0.0436      -2.73  0.00693
+\end{verbatim}
+
+predict:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.9}
+\NormalTok{heart\_test\_pred }\OtherTok{\textless{}{-}}\NormalTok{ heart\_test }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{pred =} \FunctionTok{predict}\NormalTok{(heart\_lm,heart\_test,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{),}
+    \AttributeTok{target\_fct =} \FunctionTok{factor}\NormalTok{(target),}
+    \AttributeTok{pred\_class =} \FunctionTok{if\_else}\NormalTok{(pred }\SpecialCharTok{\textgreater{}}\NormalTok{ p,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+    \AttributeTok{pred\_class =} \FunctionTok{factor}\NormalTok{(pred\_class))}
+
+\NormalTok{heart\_test\_pred}\SpecialCharTok{$}\NormalTok{pred }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{max}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.226172
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_test\_pred}\SpecialCharTok{$}\NormalTok{pred }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{min}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.3533657
+\end{verbatim}
+
+It's easy to se the prediction are not in {[}0,1{]}.
+
+ROC curve
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_test\_pred }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{roc\_curve}\NormalTok{(target\_fct,pred) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-15-1..svg}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ heart\_test\_pred  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{conf\_mat}\NormalTok{(target\_fct,pred\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Truth
+## Prediction  0  1
+##          0 42 33
+##          1  1 14
+\end{verbatim}
+
+The model is not good, at all\ldots{}
+
+\hypertarget{logit}{%
+\paragraph{Logit}\label{logit}}
+
+estimating logistic model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_logit }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ target }\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}
+                   \AttributeTok{data =}\NormalTok{ heart\_train,}
+                   \AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+
+\NormalTok{heart\_logit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = target ~ ., family = "binomial", data = heart_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.3655  -0.3939   0.1532   0.5855   2.8860  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  2.935738   3.017185   0.973  0.33055    
+## age         -0.010563   0.027693  -0.381  0.70287    
+## sex         -2.076254   0.554251  -3.746  0.00018 ***
+## cp           0.866018   0.221887   3.903  9.5e-05 ***
+## trestbps    -0.013461   0.012364  -1.089  0.27627    
+## chol        -0.008680   0.004755  -1.825  0.06793 .  
+## fbs         -0.131686   0.626322  -0.210  0.83347    
+## restecg      0.363787   0.407502   0.893  0.37200    
+## thalach      0.034392   0.012724   2.703  0.00688 ** 
+## exang       -1.048060   0.489902  -2.139  0.03241 *  
+## oldpeak     -0.451549   0.258939  -1.744  0.08119 .  
+## slope        0.264766   0.411086   0.644  0.51953    
+## ca          -0.550719   0.214671  -2.565  0.01031 *  
+## thal        -0.958959   0.355134  -2.700  0.00693 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 292.79  on 212  degrees of freedom
+## Residual deviance: 151.91  on 199  degrees of freedom
+## AIC: 179.91
+## 
+## Number of Fisher Scoring iterations: 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit\_coef }\OtherTok{\textless{}{-}}\NormalTok{ heart\_logit }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(estimate) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Logit =}\NormalTok{ estimate)}
+\end{Highlighting}
+\end{Shaded}
+
+making predictions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_log\_predict }\OtherTok{\textless{}{-}}\NormalTok{ heart\_test }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{pred=}\FunctionTok{predict}\NormalTok{(heart\_logit,heart\_test,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{heart\_log\_predict}\SpecialCharTok{$}\NormalTok{pred }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{max}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9974865
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_log\_predict}\SpecialCharTok{$}\NormalTok{pred }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{min}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.001112794
+\end{verbatim}
+
+calsify predictions for p = 0.9
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.9}
+\NormalTok{heart\_log\_predict }\OtherTok{\textless{}{-}}\NormalTok{ heart\_log\_predict }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{pred\_class =} \FunctionTok{if\_else}\NormalTok{(pred }\SpecialCharTok{\textgreater{}}\NormalTok{ p,}\StringTok{"positive"}\NormalTok{,}\StringTok{"negative"}\NormalTok{),}
+    \AttributeTok{pred\_class =} \FunctionTok{factor}\NormalTok{(pred\_class),}
+    \AttributeTok{target\_fct =} \FunctionTok{if\_else}\NormalTok{(target }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,}\StringTok{"positive"}\NormalTok{,}\StringTok{"negative"}\NormalTok{),}
+    \AttributeTok{target\_fct =} \FunctionTok{factor}\NormalTok{(target\_fct)}
+\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+matrics:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{conf\_mtx }\OtherTok{\textless{}{-}}\NormalTok{ heart\_log\_predict  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{conf\_mat}\NormalTok{(target\_fct,pred\_class)}
+
+\NormalTok{conf\_mtx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summary}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ .metric, }\AttributeTok{values\_from =}\NormalTok{ .estimate) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(accuracy,spec,sens)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   accuracy  spec  sens
+##      <dbl> <dbl> <dbl>
+## 1    0.667 0.404 0.953
+\end{verbatim}
+
+\hypertarget{regularization}{%
+\subsection{Regularization}\label{regularization}}
+
+\hypertarget{penalty}{%
+\subsubsection{\texorpdfstring{\emph{Penalty}}{Penalty}}\label{penalty}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The term in the penalty must be in absolute or square terms, beacuse
+  we want it to be positive, even if some of the \(\beta\)s are
+  negative.
+\item
+  Since LASSO uses the absolute value in the penalty temm, the optimum
+  related to it is usually when some of the \(\beta\) are zero (triangle
+  Vs. circle), and therefor it functions as ``variable selection''
+\end{enumerate}
+
+\hypertarget{modeling}{%
+\subsubsection{\texorpdfstring{\emph{Modeling}}{Modeling}}\label{modeling}}
+
+preparing data for glmnet:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X\_heart }\OtherTok{\textless{}{-}}\NormalTok{ heart\_test }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{target) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.matrix}
+\NormalTok{Y\_heart }\OtherTok{\textless{}{-}}\NormalTok{ heart\_test }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(target) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.matrix}
+\end{Highlighting}
+\end{Shaded}
+
+Fitting a model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{glmnet}\NormalTok{(}
+  \AttributeTok{x =}\NormalTok{ X\_heart,}
+  \AttributeTok{y =}\NormalTok{ Y\_heart,}
+  \AttributeTok{alpha =} \DecValTok{0}
+\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fit\_ridge,}\AttributeTok{xvar =} \StringTok{"lambda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-21-1..svg}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{cv.glmnet}\NormalTok{(}
+  \AttributeTok{x =}\NormalTok{ X\_heart,}
+  \AttributeTok{y =}\NormalTok{ Y\_heart,}
+  \AttributeTok{alpha =} \DecValTok{0} 
+\NormalTok{)}
+\FunctionTok{plot}\NormalTok{ (cv\_ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ps_2_files/figure-latex/unnamed-chunk-22-1..svg}
+
+Coeffitients:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coef\_1 }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(cv\_ridge, }\AttributeTok{s =} \StringTok{"lambda.min"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(value) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{lambda\_min =}\NormalTok{ value)}
+
+\FunctionTok{coef}\NormalTok{(cv\_ridge, }\AttributeTok{s =} \StringTok{"lambda.1se"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  as\_tibble }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{column) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"lambda\_1se"} \OtherTok{=}\NormalTok{ value) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{bind\_cols}\NormalTok{(coef\_1,logit\_coef)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 14 x 4
+##    row         lambda_1se lambda_min    Logit
+##    <chr>            <dbl>      <dbl>    <dbl>
+##  1 (Intercept)  0.682       0.769     2.94   
+##  2 age         -0.000490    0.00139  -0.0106 
+##  3 sex         -0.0725     -0.128    -2.08   
+##  4 cp           0.0474      0.0688    0.866  
+##  5 trestbps    -0.00133    -0.00221  -0.0135 
+##  6 chol         0.0000960   0.000311 -0.00868
+##  7 fbs          0.00381     0.00547  -0.132  
+##  8 restecg      0.0444      0.0815    0.364  
+##  9 thalach      0.00132     0.00112   0.0344 
+## 10 exang       -0.111      -0.165    -1.05   
+## 11 oldpeak     -0.0367     -0.0442   -0.452  
+## 12 slope        0.0761      0.122     0.265  
+## 13 ca          -0.0732     -0.138    -0.551  
+## 14 thal        -0.0670     -0.104    -0.959
+\end{verbatim}
+
+The coefficients are very different from the one form the Logistic
+regression, and some of them are really close to zero.
+
+\hypertarget{problem-with-covariats-zero}{%
+\subsubsection{problem with covariats =
+zero}\label{problem-with-covariats-zero}}
+
+In Econometrics, we are interested in the causual effect of an
+observable. Reducing the coeffitiant of a featcher to zero for reasons
+of model simplicity might cause us to lose important information.
+
+\hypertarget{prediction}{%
+\subsubsection{prediction:}\label{prediction}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_predict }\OtherTok{\textless{}{-}}\NormalTok{ heart\_test }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(target) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{log\_pred =} \FunctionTok{predict}\NormalTok{(heart\_logit, }\AttributeTok{newdata =}\NormalTok{ heart\_test),}
+    \AttributeTok{min\_lam\_pred =} \FunctionTok{predict}\NormalTok{(cv\_ridge,}
+                           \FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{select}\NormalTok{(heart\_test,}\SpecialCharTok{{-}}\NormalTok{target))}
+\NormalTok{                           ,}\AttributeTok{s =} \StringTok{"lambda.min"}\NormalTok{)[,}\DecValTok{1}\NormalTok{],}
+    \StringTok{"1se\_lam\_pred"} \OtherTok{=} \FunctionTok{predict}\NormalTok{(cv\_ridge,}
+                           \FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{select}\NormalTok{(heart\_test,}\SpecialCharTok{{-}}\NormalTok{target))}
+\NormalTok{                           ,}\AttributeTok{s =} \StringTok{"lambda.1se"}\NormalTok{)[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{The code for this file is on Github, and can be found
+\href{https://github.com/zamirD123/ML4ECON_PS_2.git}{here}}
+
+\end{document}
